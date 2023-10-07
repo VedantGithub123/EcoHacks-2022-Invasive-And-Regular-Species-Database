@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Invasive & Regular Species Database</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="description" content="Database for animal species">
+    <meta name="author" content="Vedant Nehete">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body style="background-color:rgb(79, 83, 88)">
+    <div class="jumbotron text-center bg-dark text-white">
+        <h2>Invasive & Regular Species Database</h2>
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <input id="species" type="text" class="form-control"
+                    placeholder="Species Common Name (If not known, use image file)" aria-label="Recipient's username"
+                    aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-light" type="button" onclick=giveInfo()>Submit</button>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input id="image" type="file" class="form-control">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-light" type="button" onclick=giveInfo()>Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="https://www.grouphealth.ca/wp-content/uploads/2018/05/placeholder-image.png" id="photo" class="rounded"
+        height="200" style="margin-left: 30px;">
+    <div class="row">
+        <div style="margin-left: 500px; margin-top: -200px;position:absolute;">
+            <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#commName"
+                style="min-width: 150px;">Common
+                Name</button>
+            <div id="commName" class="collapse">
+                <br>
+                <h4 id="Common Name">Common Name</h4>
+            </div>
+        </div>
+        <div style="margin-left: 700px; margin-top: -200px;position:absolute;">
+            <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#specName"
+                style="min-width: 150px;">Species
+                Name</button>
+            <div id="specName" class="collapse">
+                <br>
+                <h4 id  = "Species Name">Species Name</h4>
+            </div>
+        </div>
+        <div style="margin-left: 900px; margin-top: -200px;position:absolute;">
+            <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#origLoc"
+                style="min-width: 150px;">Original Location</button>
+            <div id="origLoc" class="collapse">
+                <br>
+                <h4 id = "Original Location">Original Location</h4>
+            </div>
+        </div>
+        <div style="margin-left: 1100px; margin-top: -200px;position:absolute;">
+            <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#taxo"
+                style="min-width: 150px;">Taxonomic Class</button>
+            <div id="taxo" class="collapse">
+                <ul class="list-group">
+                    <li class="list-group-item" id = "Kingdom">Kingdom</li>
+                    <li class="list-group-item" id = "Phylum">Phylum</li>
+                    <li class="list-group-item" id = "Class">Class</li>
+                    <li class="list-group-item" id = "Order">Order</li>
+                    <li class="list-group-item" id = "Family">Family</li>
+                    <li class="list-group-item" id = "Genus">Genus</li>
+                    <li class="list-group-item" id = "Species">Species</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="position: absolute;">
+        <div style="margin-left: 500px; margin-top: -35px;position:absolute;">
+            <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#chara"
+                style="min-width: 150px;">Characteristics</button>
+            <div id="chara" class="collapse">
+                <ul class="list-group" id = Characteristics>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-left: 700px; margin-top: -35px;position:absolute;">
+            <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#invLoc"
+                style="min-width: 150px;">Invasive Locations</button>
+            <div id="invLoc" class="collapse">
+                <ul class="list-group" id = "Invasive Locations">
+                </ul>
+            </div>
+        </div>
+        <div style="margin-left: 900px; margin-top: -35px;position:absolute;">
+            <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#specImp"
+                style="min-width: 150px;">Species Impact</button>
+            <div id="specImp" class="collapse">
+                <ul class="list-group" id = "Species Impact">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Defining animal details
+        class animalInfo {
+            constructor(species) {
+                this.species = species;
+                this.classification;
+                this.invasiveLocations;
+                this.characteristics;
+                this.speciesImage;
+                this.originalLocation;
+                this.speciesImpact;
+                this.commonName;
+            }
+            setClassification(classification) {
+                this.classification = classification;
+            }
+            setInvasiveLocations(invasiveLocations) {
+                this.invasiveLocations = invasiveLocations
+            }
+            setCharacteristics(characteristics) {
+                this.characteristics = characteristics;
+            }
+            setSpeciesImage(speciesImage) {
+                this.speciesImage = speciesImage;
+            }
+            setOriginalLocation(originalLocation) {
+                this.originalLocation = originalLocation;
+            }
+            setSpeciesImpact(speciesImpact) {
+                this.speciesImpact = speciesImpact;
+            }
+            setCommonName(commonName) {
+                this.commonName = commonName;
+            }
+            // Creating getter functions
+            getClassification() {
+                return this.classification;
+            }
+            getInvasiveLocations(self) {
+                return this.invasiveLocations;
+            }
+            getCharacteristics(self) {
+                return this.characteristics;
+            }
+            getSpeciesImage(self) {
+                return this.speciesImage;
+            }
+            getOriginalLocation(self) {
+                return this.originalLocation;
+            }
+            getSpeciesImpact(self) {
+                return this.speciesImpact;
+            }
+            getCommonName(self) {
+                return this.commonName;
+            }
+        }
+
+        // Create function to recognize species in image
+        function speciesRecognition(image) {
+            var species = "";
+            switch(Math.floor(Math.random() * 2)){
+                case 0:
+                    species = "Lion"
+                    break;
+                case 1:
+                    species = "Round Goby"
+                    break;
+            }
+            return species;
+        }
+
+        // Create object for species
+        var Database = "Panthera Leo#Animalia|Chordata|Mammalia|Carnivora|Felidae|Panthera|Panthera Leo#None#Large Cat|Carnivore|Manes on males|Golden fur#https://psycho-tests.com/uploads/lion.jpg#Africa#Top predator|Keeps ecosystem healthy#Lion\nNeogobius melanostomus#Animalia|Chordata|Actinopterygii|Gobiiformes|Gobidae|Neogobius|N. melanostomus#North American Great Lakes|Parts of Europe|Baltic Sea#Black spot on dorsal fin|Large eyes|10-15 cm|Green/Brown color#https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/A_large_neogobius_melanostomus.jpg/330px-A_large_neogobius_melanostomus.jpg#Southeast Europe#Outcompetes other species for food|Outcompetes resources#Round Goby\n";
+        const database = {};
+        Database = Database.split("\n");
+        Database.pop();
+        // Read through database and store the info into the object and class animalInfo
+        var temp;
+        for (var i in Database) {
+            temp = Database[i].split("#");
+            database[temp[7]] = new animalInfo(temp[0]);
+            database[temp[7]].setClassification(temp[1].split("|"));
+            database[temp[7]].setInvasiveLocations(temp[2].split("|"));
+            database[temp[7]].setCharacteristics(temp[3].split("|"));
+            database[temp[7]].setSpeciesImage(temp[4]);
+            database[temp[7]].setOriginalLocation(temp[5]);
+            database[temp[7]].setSpeciesImpact(temp[6].split("|"));
+            database[temp[7]].setCommonName(temp[7]);
+        }
+
+        // Create function to take input and return speciesInfo
+        function getSpeciesInfo(image = "", species = "") {
+            // If the user doesn't input a species, it finds the species from the image
+            if (species == "") {
+                species = speciesRecognition(image);
+            }
+            // Tries to find the species in the database and returns species info, returns error if species is not in the database
+            try {
+                return [species, database[species].getClassification(), database[species].getInvasiveLocations(), database[species].getCharacteristics(), database[species].getSpeciesImage(), database[species].getOriginalLocation(), database[species].getSpeciesImpact(), database[species].getCommonName()];
+            }
+            catch (err) {
+                return "The species in the photo was not in our database";
+            }
+        }
+
+        function giveInfo() {
+            image = document.getElementById("image").value;
+            species = document.getElementById("species").value;
+            temp = getSpeciesInfo(image, species);
+            if (temp == "The species in the photo was not in our database") {
+                alert("The species was not in our database");
+            } else {
+                document.getElementById("Common Name").innerHTML=temp[7];
+                document.getElementById("Species Name").innerHTML=temp[1][6];
+                document.getElementById("Original Location").innerHTML=temp[5];
+                document.getElementById("Kingdom").innerHTML=temp[1][0];
+                document.getElementById("Phylum").innerHTML=temp[1][1];
+                document.getElementById("Class").innerHTML=temp[1][2];
+                document.getElementById("Order").innerHTML=temp[1][3];
+                document.getElementById("Family").innerHTML=temp[1][4];
+                document.getElementById("Genus").innerHTML=temp[1][5];
+                document.getElementById("Species").innerHTML=temp[1][6];
+                document.getElementById("photo").src=temp[4];
+                document.getElementById("Characteristics").innerHTML = "";
+                for (let i of temp[3]){
+                    let li = document.createElement("li");
+                    li.innerHTML = i;
+                    li.classList.add("list-group-item");
+                    document.getElementById("Characteristics").appendChild(li);
+                }
+                document.getElementById("Species Impact").innerHTML = "";
+                for (let i of temp[6]){
+                    let li = document.createElement("li");
+                    li.innerHTML = i;
+                    li.classList.add("list-group-item");
+                    document.getElementById("Species Impact").appendChild(li);
+                }
+                document.getElementById("Invasive Locations").innerHTML = "";
+                for (let i of temp[2]){
+                    let li = document.createElement("li");
+                    li.innerHTML = i;
+                    li.classList.add("list-group-item");
+                    document.getElementById("Invasive Locations").appendChild(li);
+                }
+            }
+        }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
